@@ -1,0 +1,525 @@
+/* ============================================
+   MOBILE SUIT CODEX — EFF TACTICAL ARCHIVE NETWORK
+   Design system: stenciled military archive terminal
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=IBM+Plex+Mono:wght@400;500;600;700&family=Archivo+Narrow:wght@400;500;600;700&display=swap');
+
+:root {
+  --ink-black: #14160F;
+  --ink-black-2: #1B1E15;
+  --olive-drab: #4B5320;
+  --olive-drab-dim: #3A4019;
+  --khaki-paper: #D9D2B0;
+  --khaki-paper-2: #CFC6A0;
+  --cmd-amber: #E8A33D;
+  --alert-red: #9B2C2C;
+  --steel-grey: #6B6F66;
+  --paper-ink: #1F2017;
+  --off-white: #ECE7D6;
+
+  --font-display: 'Black Ops One', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-body: 'Archivo Narrow', sans-serif;
+
+  --max-width: 1180px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse at top, rgba(75,83,32,0.18), transparent 60%),
+    var(--ink-black);
+  color: var(--off-white);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.5;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* faint scanline texture across the dark terminal chrome only */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(232, 163, 61, 0.025) 0px,
+    rgba(232, 163, 61, 0.025) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+}
+
+a { color: var(--cmd-amber); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+a:focus-visible,
+button:focus-visible,
+.dir-row:focus-visible {
+  outline: 2px solid var(--cmd-amber);
+  outline-offset: 3px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+p { margin: 0 0 1em; }
+
+.wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 28px;
+  position: relative;
+  z-index: 2;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--steel-grey);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cmd-amber);
+}
+
+/* ===== Terminal header bar ===== */
+.term-bar {
+  border-bottom: 1px solid var(--olive-drab);
+  background: linear-gradient(to bottom, var(--ink-black-2), var(--ink-black));
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.term-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.term-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--off-white);
+}
+
+.term-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 15px;
+  background: var(--cmd-amber);
+  animation: blink 1.1s steps(1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .term-cursor { animation: none; opacity: 1; }
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.term-bar-right {
+  color: var(--steel-grey);
+  letter-spacing: 0.06em;
+}
+
+.term-bar-right .stamp-red { color: var(--alert-red); font-weight: 600; }
+
+nav.crumbs {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--steel-grey);
+  letter-spacing: 0.04em;
+  padding: 14px 0 0;
+}
+nav.crumbs a { color: var(--steel-grey); }
+nav.crumbs a:hover { color: var(--cmd-amber); }
+nav.crumbs .current { color: var(--off-white); }
+
+/* ===== Site nav (directory categories) ===== */
+.primary-nav {
+  display: flex;
+  gap: 22px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.primary-nav a { color: var(--off-white); opacity: 0.75; }
+.primary-nav a:hover { opacity: 1; color: var(--cmd-amber); text-decoration: none; }
+
+/* ===== Hero ===== */
+.hero {
+  padding: 64px 0 48px;
+  border-bottom: 1px dashed var(--steel-grey);
+}
+
+.hero h1 {
+  font-size: clamp(38px, 6vw, 68px);
+  color: var(--khaki-paper);
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.4);
+  line-height: 1.05;
+  margin-bottom: 14px;
+}
+
+.hero .sub {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--cmd-amber);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+.hero .desc {
+  max-width: 620px;
+  color: var(--off-white);
+  opacity: 0.85;
+  font-size: 18px;
+}
+
+/* ===== Directory listing block ===== */
+.directory {
+  padding: 48px 0;
+}
+
+.directory .section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--olive-drab);
+  padding-bottom: 10px;
+}
+
+.section-head h2 {
+  font-size: 20px;
+  color: var(--khaki-paper);
+}
+
+.dir-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+.dir-row {
+  display: grid;
+  grid-template-columns: 28px 1fr 180px 110px;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 12px;
+  border-bottom: 1px solid rgba(107,111,102,0.35);
+  text-decoration: none;
+  color: var(--off-white);
+  transition: background 0.12s ease, padding-left 0.12s ease;
+}
+
+.dir-row:hover {
+  background: rgba(75,83,32,0.25);
+  padding-left: 18px;
+  text-decoration: none;
+}
+
+.dir-row .icon { color: var(--cmd-amber); }
+.dir-row .name { font-family: var(--font-body); font-size: 17px; font-weight: 600; color: var(--khaki-paper); }
+.dir-row .meta { color: var(--steel-grey); font-size: 12.5px; text-align: right; }
+.dir-row .count { color: var(--steel-grey); font-size: 12.5px; text-align: right; }
+
+/* ===== Featured campaign cards ===== */
+.campaigns {
+  padding: 20px 0 56px;
+}
+
+.campaign-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 720px) {
+  .campaign-grid { grid-template-columns: 1fr; }
+  .dir-row { grid-template-columns: 24px 1fr 90px; }
+  .dir-row .count { display: none; }
+}
+
+.campaign-card {
+  border: 1px solid var(--olive-drab);
+  background: linear-gradient(160deg, rgba(75,83,32,0.16), rgba(20,22,15,0.4));
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.campaign-card::after {
+  content: attr(data-id);
+  position: absolute;
+  right: -6px;
+  bottom: -22px;
+  font-family: var(--font-display);
+  font-size: 80px;
+  color: rgba(232,163,61,0.06);
+  pointer-events: none;
+}
+
+.campaign-card .tag {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  color: var(--alert-red);
+  border: 1px solid var(--alert-red);
+  display: inline-block;
+  padding: 2px 8px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.campaign-card h3 {
+  font-size: 24px;
+  color: var(--khaki-paper);
+  margin-bottom: 6px;
+}
+
+.campaign-card .designation {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--steel-grey);
+  margin-bottom: 14px;
+}
+
+.campaign-card p {
+  font-size: 15.5px;
+  color: var(--off-white);
+  opacity: 0.85;
+  margin-bottom: 16px;
+}
+
+.campaign-card .enter-link {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ===== Footer ===== */
+footer {
+  border-top: 1px solid var(--olive-drab);
+  padding: 28px 0 40px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--steel-grey);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+footer .stamp-red { color: var(--alert-red); }
+
+/* ============================================
+   DOSSIER PAGE (case-folder treatment)
+   ============================================ */
+
+.dossier-stage {
+  padding: 40px 0 70px;
+}
+
+.folder {
+  background: var(--khaki-paper);
+  color: var(--paper-ink);
+  position: relative;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.45), 0 0 0 1px rgba(0,0,0,0.2);
+  transform: rotate(-0.4deg);
+  padding: 0 0 36px;
+}
+
+.folder-tab {
+  position: absolute;
+  top: -28px;
+  left: 36px;
+  background: var(--khaki-paper-2);
+  border: 1px solid rgba(31,32,23,0.25);
+  border-bottom: none;
+  padding: 7px 22px 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  clip-path: polygon(8% 0, 92% 0, 100% 100%, 0% 100%);
+}
+
+.folder-header {
+  padding: 56px 44px 26px;
+  border-bottom: 2px solid var(--paper-ink);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.folder-header .designation {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: var(--olive-drab-dim);
+  margin-bottom: 8px;
+}
+
+.folder-header h1 {
+  font-size: clamp(30px, 4.5vw, 46px);
+  color: var(--paper-ink);
+  line-height: 1.05;
+}
+
+.stamp {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: var(--alert-red);
+  border: 3px solid var(--alert-red);
+  padding: 6px 14px;
+  transform: rotate(-9deg);
+  white-space: nowrap;
+  opacity: 0.85;
+  align-self: center;
+}
+
+.folder-body {
+  padding: 30px 44px 0;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 40px;
+}
+
+@media (max-width: 760px) {
+  .folder-body { grid-template-columns: 1fr; }
+  .folder-header { padding: 56px 26px 22px; }
+  .folder-body { padding: 26px 26px 0; }
+}
+
+.spec-panel {
+  border: 1px solid rgba(31,32,23,0.3);
+  padding: 18px;
+  align-self: start;
+  position: sticky;
+  top: 90px;
+}
+
+.spec-panel .schematic {
+  width: 100%;
+  aspect-ratio: 3/4;
+  border: 1px dashed rgba(31,32,23,0.4);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-linear-gradient(45deg, rgba(31,32,23,0.04) 0 8px, transparent 8px 16px);
+}
+
+.spec-list { font-family: var(--font-mono); font-size: 12.5px; }
+.spec-list dt { color: var(--olive-drab-dim); margin-top: 10px; letter-spacing: 0.06em; text-transform: uppercase; font-size: 10.5px; }
+.spec-list dd { margin: 2px 0 0; font-size: 13.5px; font-weight: 600; }
+
+.dossier-content h2 {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--olive-drab-dim);
+  border-bottom: 1px solid rgba(31,32,23,0.25);
+  padding-bottom: 8px;
+  margin: 0 0 14px;
+}
+
+.dossier-content h3 {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--olive-drab-dim);
+  opacity: 0.85;
+  margin: 20px 0 8px;
+}
+
+.dossier-content h3:first-child { margin-top: 0; }
+
+.dossier-content section + section { margin-top: 34px; }
+
+.dossier-content p {
+  font-size: 16.5px;
+  color: var(--paper-ink);
+}
+
+.redacted {
+  background: var(--paper-ink);
+  color: var(--paper-ink);
+  padding: 0 4px;
+  user-select: none;
+}
+
+.armament-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+.armament-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(31,32,23,0.15);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.armament-list .a-name { font-family: var(--font-body); font-weight: 700; font-size: 16px; }
+.armament-list .a-note { color: var(--olive-drab-dim); text-align: right; font-size: 12.5px; max-width: 50%; }
+
+.pilot-card {
+  border-left: 3px solid var(--alert-red);
+  padding: 4px 0 4px 16px;
+  margin-bottom: 16px;
+}
+.pilot-card .p-name { font-weight: 700; font-size: 16.5px; }
+.pilot-card .p-role { font-family: var(--font-mono); font-size: 11.5px; color: var(--olive-drab-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* dir-table reused inside light paper folders (faction rosters, equipment lists) needs dark text, not the dark-terminal palette */
+.folder .dir-row {
+  color: var(--paper-ink);
+  border-bottom: 1px solid rgba(31,32,23,0.15);
+}
+.folder .dir-row .name { color: var(--paper-ink); }
+.folder .dir-row .meta,
+.folder .dir-row .count { color: var(--olive-drab-dim); }
+.folder .dir-row .icon { color: var(--alert-red); }
+.folder .dir-row:hover { background: rgba(75,83,32,0.12); }
