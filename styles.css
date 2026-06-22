@@ -445,77 +445,85 @@ footer .stamp-red { color: var(--alert-red); }
 }
 
 @media (max-width: 760px) {
-  /* Folder layout: drop the rotation, fix padding */
+  /* ── NAV ── */
+  .primary-nav {
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    font-size: 10.5px;
+    padding: 10px 0;
+  }
+  .term-bar-inner { flex-wrap: wrap; gap: 4px; font-size: 11.5px; }
+
+  /* ── FOLDER LAYOUT ── */
   .folder { transform: none; }
-  .folder-tab { left: 16px; padding: 6px 14px 8px; font-size: 11px; }
+  .folder-tab { left: 16px; padding: 5px 12px 8px; font-size: 10.5px; clip-path: none; }
   .folder-header {
-    padding: 42px 18px 18px;
+    padding: 36px 16px 16px;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     align-items: flex-start;
   }
-  .folder-header h1 { font-size: clamp(22px, 6vw, 34px); }
-  /* Stamp: remove rotation and wrap on mobile */
+  .folder-header h1 { font-size: clamp(22px, 6vw, 32px); }
   .stamp, .stamp-generic {
     transform: none;
-    font-size: 11px;
-    padding: 5px 10px;
+    font-size: 10px;
+    padding: 4px 8px;
     white-space: normal;
     align-self: flex-start;
   }
-  /* Body: single column, tight padding */
   .folder-body {
     grid-template-columns: 1fr;
-    padding: 18px 18px 0;
-    gap: 24px;
+    padding: 16px 16px 0;
+    gap: 20px;
   }
-  /* Spec panel: un-stick it on mobile so it doesn't overlap */
-  .spec-panel {
-    position: static;
-    padding: 14px;
-  }
-  /* Hide the large schematic placeholder on mobile — it eats half the screen */
+
+  /* ── SPEC PANEL ── */
+  /* position is already static (no sticky on mobile) */
+  .spec-panel { padding: 12px; }
+  /* Hide schematic on mobile — it takes up half the screen */
   .spec-panel .schematic { display: none; }
-  /* Spec list: make the dl two-column on mobile for compactness */
+  /* Compact two-col spec list */
   .spec-list {
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: 2px 12px;
+    column-gap: 12px;
+    row-gap: 0;
   }
-  .spec-list dt { margin-top: 6px; font-size: 10px; }
-  .spec-list dd { margin-top: 6px; font-size: 12.5px; }
-  /* Dossier content: tighter headings */
+  .spec-list dt { margin-top: 8px; font-size: 10px; }
+  .spec-list dd { margin-top: 8px; font-size: 12.5px; }
+
+  /* ── CONTENT ── */
+  .dossier-content p { font-size: 15px; }
   .dossier-content h2 { font-size: 12px; }
   .dossier-content h3 { font-size: 10.5px; }
-  .dossier-content p { font-size: 15px; }
-  /* Armament list: stack name and note vertically on small screens */
   .armament-list li { flex-direction: column; gap: 2px; }
   .armament-list .a-note { text-align: left; max-width: 100%; font-size: 12px; }
-  /* Dir rows: tighten up */
-  .dir-row { grid-template-columns: 20px 1fr 80px; gap: 8px; padding: 12px 8px; }
+  .pilot-card .p-name { font-size: 15px; }
+
+  /* ── DIRECTORY ROWS ── */
+  .dir-row { grid-template-columns: 20px 1fr 70px; gap: 8px; padding: 11px 8px; }
   .dir-row .count { display: none; }
-  /* Hero: tighten on mobile */
-  .hero { padding: 32px 0 24px; }
-  .hero h1 { font-size: clamp(28px, 8vw, 44px); }
-  /* Campaign cards: single column handled by .campaign-grid */
-  .campaign-grid { grid-template-columns: 1fr; }
-  /* Primary nav: allow wrapping */
-  .primary-nav { flex-wrap: wrap; gap: 10px 16px; }
-  /* Term bar: stack on very narrow */
-  .term-bar-inner { flex-wrap: wrap; gap: 4px; }
-  /* Associates / faction dir-tables inside folder */
   .folder .dir-row { grid-template-columns: 20px 1fr 70px; }
+
+  /* ── HERO ── */
+  .hero { padding: 28px 0 20px; }
+  .hero h1 { font-size: clamp(28px, 8vw, 42px); }
+
+  /* ── CAMPAIGNS ── */
+  .campaign-grid { grid-template-columns: 1fr; }
+  .campaign-card .campaign-card::after { font-size: 52px; }
 }
 
 .spec-panel {
   border: 1px solid rgba(31,32,23,0.3);
   padding: 18px;
   align-self: start;
-  position: sticky;
-  top: 90px;
+  /* sticky applied desktop-only below */
 }
 
-/* Desktop keeps sticky; mobile overrides to static above */
+@media (min-width: 761px) {
+  .spec-panel { position: sticky; top: 90px; }
+}
 
 .spec-panel .schematic {
   width: 100%;
