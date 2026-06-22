@@ -522,12 +522,17 @@ footer .stamp-red { color: var(--alert-red); }
 }
 
 @media (min-width: 761px) {
-  .spec-panel { position: sticky; top: 90px; }
+  .spec-panel {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 90px;
+  }
 }
 
 .spec-panel .schematic {
   width: 100%;
   aspect-ratio: 3/4;
+  min-height: 200px; /* fallback for Safari < 15 that ignores aspect-ratio */
   border: 1px dashed rgba(31,32,23,0.4);
   margin-bottom: 16px;
   display: flex;
